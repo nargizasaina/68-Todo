@@ -1,11 +1,5 @@
-import React from 'react';
+import TodoListApp from "./containers/TodoListApp/TodoListApp";
 
-const App = () => {
-  return (
-      <div>
-        
-      </div>
-  );
-};
+const App = () => <TodoListApp/>;
 
 export default App;
