@@ -9,6 +9,10 @@ const TodoListApp = () => {
     const todo = useSelector(state => state.todo);
     const [showForm, setShowForm] = useState(false);
 
+    console.log(todo);
+    const newTask = useSelector(state => state.newTask)
+    console.log(newTask);
+
     useEffect(() => {
         dispatch(fetchTodo());
     }, [dispatch]);
@@ -24,11 +28,12 @@ const TodoListApp = () => {
         }
     };
 
-    const onSubmit = (e) => {
+    const onSubmit = async (e) => {
         e.preventDefault();
         setShowForm(false);
 
-        dispatch(saveTodo());
+        await dispatch(saveTodo());
+        dispatch(fetchTodo());
     };
 
     return (
@@ -38,11 +43,16 @@ const TodoListApp = () => {
                 onChange={onChange}
                 onSubmit={onSubmit}
                 showForm={showForm}
-                todo={todo}
             />
-            <ShowList
-
-            />
+            <div className="ShowList">
+                <h3>List of my todos</h3>
+                {todo.map(task => (
+                    <ShowList
+                        key={task.id}
+                        task={task.newTask}
+                    />
+                ))}
+            </div>
         </>
 
     );
