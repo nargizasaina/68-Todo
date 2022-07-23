@@ -1,4 +1,12 @@
-import {ADD, FETCH_TODO_FAILURE, FETCH_TODO_REQUEST, FETCH_TODO_SUCCESS} from "./actions";
+import {
+    ADD, DELETE_TODO_FAILURE,
+    DELETE_TODO_REQUEST,
+    DELETE_TODO_SUCCESS,
+    ERASE,
+    FETCH_TODO_FAILURE,
+    FETCH_TODO_REQUEST,
+    FETCH_TODO_SUCCESS
+} from "./actions";
 
 const initialState = {
     todo: [],
@@ -16,6 +24,14 @@ const reducer = (state = initialState, action) => {
         case FETCH_TODO_SUCCESS:
             return {...state, loading: false, todo: action.payload};
         case FETCH_TODO_FAILURE:
+            return {...state, loading: false};
+        case ERASE:
+            return {...state, newTask: ''};
+        case DELETE_TODO_REQUEST:
+            return {...state, loading: true, error: null};
+        case DELETE_TODO_SUCCESS:
+            return {...state, loading: false};
+        case DELETE_TODO_FAILURE:
             return {...state, loading: false};
         default:
             return state;

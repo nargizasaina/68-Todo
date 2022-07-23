@@ -1,17 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {add, fetchTodo, saveTodo} from "../../store/actions";
+import {add, deleteTodo, erase, fetchTodo, saveTodo} from "../../store/actions";
 import TodoList from "../../components/TodoList/TodoList";
 import ShowList from "../../components/ShowList/ShowList";
 
 const TodoListApp = () => {
     const dispatch = useDispatch();
     const todo = useSelector(state => state.todo);
-    const [showForm, setShowForm] = useState(false);
+    const newTask = useSelector(state => state.newTask);
 
-    console.log(todo);
-    const newTask = useSelector(state => state.newTask)
-    console.log(newTask);
+    const [showForm, setShowForm] = useState(false);
 
     useEffect(() => {
         dispatch(fetchTodo());
@@ -21,20 +19,36 @@ const TodoListApp = () => {
         setShowForm(true);
     };
 
-    const onChange = e => {
-        console.log(e.target.value);
-        if (e.target.value !== '') {
-            return dispatch(add(e.target.value));
-        }
+    const onChange = e => dispatch(add(e.target.value));
+
+    const onDelete = async (id) => {
+        await dispatch(deleteTodo(id));
+        dispatch(fetchTodo());
     };
 
     const onSubmit = async (e) => {
         e.preventDefault();
-        setShowForm(false);
+        if (newTask !== '') {
+            setShowForm(false);
 
-        await dispatch(saveTodo());
-        dispatch(fetchTodo());
+            await dispatch(saveTodo());
+            dispatch(fetchTodo());
+            dispatch(erase());
+        } else {
+            alert('Enter a task name');
+        }
     };
+
+    let list = <p>There are no tasks!</p>;
+
+    if (todo.length > 0) {
+        list = todo.map(task => (
+            <ShowList
+                key={task.id}
+                task={task.newTask}
+                onDelete={() => onDelete(task.id)}
+            />
+        ))}
 
     return (
         <>
@@ -46,15 +60,9 @@ const TodoListApp = () => {
             />
             <div className="ShowList">
                 <h3>List of my todos</h3>
-                {todo.map(task => (
-                    <ShowList
-                        key={task.id}
-                        task={task.newTask}
-                    />
-                ))}
+                {list}
             </div>
         </>
-
     );
 };
 

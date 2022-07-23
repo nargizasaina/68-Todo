@@ -1,11 +1,11 @@
 import Button from "@mui/material/Button";
 import './ShowList.css';
 
-const ShowList = ({task}) => {
+const ShowList = ({task, onDelete}) => {
     return (
         <div className="Task">
             <p><b>Task: </b> {task}</p>
-            <Button variant="contained" color="error">
+            <Button type="button" onClick={onDelete} variant="contained" color="error">
                 Delete
             </Button>
         </div>
