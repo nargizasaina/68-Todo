@@ -30,8 +30,6 @@ const TodoListApp = () => {
     const onSubmit = async (e) => {
         e.preventDefault();
         if (newTask !== '') {
-
-
             await dispatch(saveTodo());
             dispatch(fetchTodo());
             dispatch(erase());
@@ -50,7 +48,8 @@ const TodoListApp = () => {
                 task={task.newTask}
                 onDelete={() => onDelete(task.id)}
             />
-        ))}
+        ))
+    }
 
     return (
         <>
