@@ -14,6 +14,7 @@ const TodoList = (props) => {
                 show={props.showForm}
                 onChange={props.onChange}
                 onSubmit={props.onSubmit}
+                loading={props.loading}
             />
         </div>
     );

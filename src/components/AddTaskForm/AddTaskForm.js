@@ -1,8 +1,9 @@
 import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
+import LoadingButton from '@mui/lab/LoadingButton';
+import SaveIcon from '@mui/icons-material/Save';
 import './AddTaskForm.css';
 
-const AddTaskForm = ({show, onSubmit, onChange}) => {
+const AddTaskForm = ({show, onSubmit, onChange, loading}) => {
     return show ?
         (<form className="Form" onSubmit={onSubmit}>
             <TextField
@@ -11,7 +12,17 @@ const AddTaskForm = ({show, onSubmit, onChange}) => {
                 maxRows={4}
                 onChange={onChange}
             />
-            <Button type="submit" variant="contained" color="success">Save</Button>
+            <LoadingButton
+                type="submit"
+                size="small"
+                color="success"
+                loading={loading}
+                loadingPosition="start"
+                startIcon={<SaveIcon />}
+                variant="contained"
+            >
+                Save
+            </LoadingButton>
         </form>) : null;
 };
 

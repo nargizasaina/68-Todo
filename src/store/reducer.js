@@ -5,7 +5,7 @@ import {
     ERASE,
     FETCH_TODO_FAILURE,
     FETCH_TODO_REQUEST,
-    FETCH_TODO_SUCCESS
+    FETCH_TODO_SUCCESS, SAVE_TODO_FAILURE, SAVE_TODO_REQUEST, SAVE_TODO_SUCCESS
 } from "./actions";
 
 const initialState = {
@@ -32,6 +32,12 @@ const reducer = (state = initialState, action) => {
         case DELETE_TODO_SUCCESS:
             return {...state, loading: false};
         case DELETE_TODO_FAILURE:
+            return {...state, loading: false};
+        case SAVE_TODO_REQUEST:
+            return {...state, loading: true, error: null};
+        case SAVE_TODO_SUCCESS:
+            return {...state, loading: false};
+        case SAVE_TODO_FAILURE:
             return {...state, loading: false};
         default:
             return state;

@@ -8,6 +8,7 @@ const TodoListApp = () => {
     const dispatch = useDispatch();
     const todo = useSelector(state => state.todo);
     const newTask = useSelector(state => state.newTask);
+    const loading = useSelector(state => state.loading);
 
     const [showForm, setShowForm] = useState(false);
 
@@ -29,11 +30,12 @@ const TodoListApp = () => {
     const onSubmit = async (e) => {
         e.preventDefault();
         if (newTask !== '') {
-            setShowForm(false);
+
 
             await dispatch(saveTodo());
             dispatch(fetchTodo());
             dispatch(erase());
+            setShowForm(false);
         } else {
             alert('Enter a task name');
         }
@@ -57,6 +59,7 @@ const TodoListApp = () => {
                 onChange={onChange}
                 onSubmit={onSubmit}
                 showForm={showForm}
+                loading={loading}
             />
             <div className="ShowList">
                 <h3>List of my todos</h3>
